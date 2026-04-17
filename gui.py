@@ -3,9 +3,25 @@ from tkinter import messagebox
 from datetime import datetime
 
 
+# ============================================================
+# Car Inventory Management System GUI
+# ------------------------------------------------------------
+# Main Tkinter frontend shell for the inventory interface.
+# Contains:
+# - sidebar navigation
+# - home dashboard
+# - recent file preview behavior
+# - placeholder backend actions
+# ============================================================
+
+
 class ToolTip:
     """Simple tooltip for Tkinter widgets."""
 
+    # --------------------------------------------------------
+    # Setup
+    # Stores widget references and binds hover events.
+    # --------------------------------------------------------
     def __init__(self, widget, text):
         self.widget = widget
         self.text = text
@@ -14,6 +30,10 @@ class ToolTip:
         self.widget.bind("<Enter>", self.show_tooltip)
         self.widget.bind("<Leave>", self.hide_tooltip)
 
+    # --------------------------------------------------------
+    # Display tooltip
+    # Creates a small floating tooltip near the widget.
+    # --------------------------------------------------------
     def show_tooltip(self, event=None):
         if self.tip_window or not self.text:
             return
@@ -38,6 +58,10 @@ class ToolTip:
         )
         label.pack()
 
+    # --------------------------------------------------------
+    # Hide tooltip
+    # Removes the tooltip when the cursor leaves the widget.
+    # --------------------------------------------------------
     def hide_tooltip(self, event=None):
         if self.tip_window:
             self.tip_window.destroy()
@@ -47,6 +71,15 @@ class ToolTip:
 class InventoryApp(tk.Tk):
     """Frontend GUI shell for the Car Inventory Management System."""
 
+    # ========================================================
+    # Application setup
+    # --------------------------------------------------------
+    # Initializes the main window, UI state trackers,
+    # and builds the base layout.
+    #
+    # Future integration:
+    # - replace placeholder data with real inventory/session data
+    # ========================================================
     def __init__(self):
         super().__init__()
 
@@ -74,6 +107,11 @@ class InventoryApp(tk.Tk):
 
         self._build_layout()
 
+    # ========================================================
+    # Base layout
+    # --------------------------------------------------------
+    # Creates the persistent sidebar and main content area.
+    # ========================================================
     def _build_layout(self):
         self.sidebar = tk.Frame(self, bg="#1f2937", width=280)
         self.sidebar.pack(side="left", fill="y")
@@ -123,6 +161,11 @@ class InventoryApp(tk.Tk):
 
         self.show_home()
 
+    # ========================================================
+    # Clear active page
+    # --------------------------------------------------------
+    # Removes current page widgets and resets temporary state.
+    # ========================================================
     def clear_content(self):
         for widget in self.content.winfo_children():
             widget.destroy()
@@ -142,6 +185,12 @@ class InventoryApp(tk.Tk):
         self.session_value_label = None
         self.summary_value_label = None
 
+    # ========================================================
+    # Reusable vertical scroll region
+    # --------------------------------------------------------
+    # Builds a scrollable canvas + inner frame combination.
+    # Used for pages that may grow beyond the window height.
+    # ========================================================
     def make_vertical_scroll_region(self, parent, bg="#f4f6f8"):
         outer = tk.Frame(parent, bg=bg)
         outer.pack(fill="both", expand=True)
@@ -170,17 +219,32 @@ class InventoryApp(tk.Tk):
 
         return outer, canvas, inner
 
+    # --------------------------------------------------------
+    # Vertical scroll bindings
+    # Connects mousewheel events to vertical canvas scrolling.
+    # --------------------------------------------------------
     def _bind_vertical_mousewheel(self, widget):
         widget.bind("<MouseWheel>", lambda e: self._on_vertical_mousewheel(e, widget))
         widget.bind("<Button-4>", lambda e: widget.yview_scroll(-1, "units"))
         widget.bind("<Button-5>", lambda e: widget.yview_scroll(1, "units"))
 
+    # --------------------------------------------------------
+    # Vertical scroll handler
+    # --------------------------------------------------------
     def _on_vertical_mousewheel(self, event, widget):
         if event.delta > 0:
             widget.yview_scroll(-1, "units")
         elif event.delta < 0:
             widget.yview_scroll(1, "units")
 
+    # ========================================================
+    # Header toolbar
+    # --------------------------------------------------------
+    # Creates the home-page action buttons.
+    #
+    # Future integration:
+    # - connect load/save/report to actual file operations
+    # ========================================================
     def build_toolbar(self, parent):
         toolbar = tk.Frame(parent, bg="#b7c3d1")
         toolbar.pack(side="left", anchor="w", padx=8, pady=6)
@@ -211,6 +275,11 @@ class InventoryApp(tk.Tk):
         ToolTip(save_btn, "Save Inventory")
         ToolTip(report_btn, "View Report")
 
+    # ========================================================
+    # Recent file strip scrolling
+    # --------------------------------------------------------
+    # Handles horizontal scrolling for the recent files area.
+    # ========================================================
     def _bind_recent_horizontal_scroll(self, widget):
         widget.bind("<Shift-MouseWheel>", self._on_recent_shift_mousewheel)
         widget.bind("<MouseWheel>", self._on_recent_touchpad_mousewheel)
@@ -236,6 +305,17 @@ class InventoryApp(tk.Tk):
         if self.recent_canvas is not None:
             self.recent_canvas.xview_scroll(amount, "units")
 
+    # ========================================================
+    # Recent file selection and drag behavior
+    # --------------------------------------------------------
+    # Keeps recent files responsive for:
+    # - click to select
+    # - drag to scroll
+    # - double-click placeholder open
+    #
+    # Change made:
+    # - dragging works across the whole recent area, not just cards
+    # ========================================================
     def _recent_area_press(self, event):
         self.recent_press_x = event.x_root
         self.recent_dragging = False
@@ -272,6 +352,9 @@ class InventoryApp(tk.Tk):
         self.open_recent_file_placeholder(file_name)
         return "break"
 
+    # --------------------------------------------------------
+    # Highlight active recent file card
+    # --------------------------------------------------------
     def select_recent_file(self, card, icon_label, name_label, file_name):
         default_bg = "#d1d5db"
         selected_bg = "#93a8bf"
@@ -292,6 +375,9 @@ class InventoryApp(tk.Tk):
         self.selected_recent_file_name_label = name_label
         self.selected_recent_file_name = file_name
 
+    # --------------------------------------------------------
+    # Build one recent file card
+    # --------------------------------------------------------
     def create_recent_file_card(self, parent, file_name):
         card = tk.Frame(
             parent,
@@ -344,6 +430,15 @@ class InventoryApp(tk.Tk):
 
         return card
 
+    # ========================================================
+    # Preview and summary updates
+    # --------------------------------------------------------
+    # Updates the right-side preview area and left-side info cards.
+    #
+    # Future integration:
+    # - load real file contents
+    # - show actual vehicle/location/save metadata
+    # ========================================================
     def show_file_preview(self, file_name):
         """Show preview text in the large open white area."""
         if self.preview_title_label is not None:
@@ -373,13 +468,27 @@ class InventoryApp(tk.Tk):
                 text=f"Vehicles: 0\nLocations: Austin\nLast Save: {current_date}"
             )
 
+    # ========================================================
+    # Home page
+    # --------------------------------------------------------
+    # Main dashboard view.
+    # Includes:
+    # - header toolbar
+    # - session panel
+    # - summary panel
+    # - preview area
+    # - recent files strip
+    #
+    # Change made:
+    # - header stays above session/summary
+    # - recent files stay docked at the bottom
+    # ========================================================
     def show_home(self):
         self.clear_content()
 
         home_container = tk.Frame(self.content, bg="#f4f6f8")
         home_container.pack(fill="both", expand=True)
 
-        # Header across the full home area
         header_panel = tk.Frame(home_container, bg="#b7c3d1", height=44)
         header_panel.pack(fill="x", side="top")
         header_panel.pack_propagate(False)
@@ -447,7 +556,6 @@ class InventoryApp(tk.Tk):
         )
         self.summary_value_label.pack(fill="x")
 
-        # Right side: preview area + bottom recent files
         preview_wrapper = tk.Frame(right_panel, bg="#f4f6f8")
         preview_wrapper.pack(fill="both", expand=True, padx=16, pady=(16, 8))
 
@@ -471,10 +579,7 @@ class InventoryApp(tk.Tk):
             wrap="word"
         )
         self.preview_text.pack(fill="both", expand=True)
-        self.preview_text.insert(
-            "1.0",
-            "Select a recent file to preview it here."
-        )
+        self.preview_text.insert("1.0", "Select a recent file to preview it here.")
 
         recent_wrapper = tk.Frame(right_panel, bg="#f4f6f8")
         recent_wrapper.pack(fill="x", side="bottom", anchor="sw", padx=16, pady=(0, 16))
@@ -541,6 +646,11 @@ class InventoryApp(tk.Tk):
         for file_name in fake_files:
             self.create_recent_file_card(recent_row, file_name)
 
+    # ========================================================
+    # Secondary pages
+    # --------------------------------------------------------
+    # Placeholder pages until real forms and data views are added.
+    # ========================================================
     def show_add_vehicle(self):
         self.clear_content()
 
@@ -622,6 +732,11 @@ class InventoryApp(tk.Tk):
         spacer = tk.Frame(frame, bg="#f4f6f8", height=700)
         spacer.pack(fill="x")
 
+    # ========================================================
+    # Placeholder actions
+    # --------------------------------------------------------
+    # Temporary message boxes until backend functions exist.
+    # ========================================================
     def save_placeholder(self):
         messagebox.showinfo("Save", "Save button works. Backend not connected yet.")
 
@@ -633,3 +748,13 @@ class InventoryApp(tk.Tk):
 
     def open_recent_file_placeholder(self, file_name):
         messagebox.showerror("Recent File", f'"{file_name}" does not exist yet.')
+
+
+# ============================================================
+# Program entry point
+# ------------------------------------------------------------
+# Runs the app when this file is executed directly.
+# ============================================================
+if __name__ == "__main__":
+    app = InventoryApp()
+    app.mainloop()
