@@ -1,21 +1,26 @@
-#Component Classes - Chassis
-class Chassis:
-    """Represents the chassis component of a vehicle."""
-    def __init__(self,chassis_type, weight_kg):
-        self.chassis_type = chassis_type
-        self.weight_kg = weight_kg
+from __future__ import annotations
 
-    def get_load_rating(self): # Load rating is determined by chassis type and weight
-        """Determines the load rating based on chassis type and weight."""
-        if self.chassis_type.lower() == "body-on-frame":
-            if self.weight_kg < 2000:
-                return "Medium Load"
-            else: 
-                return "Heavy Load"
-        elif self.chassis_type.lower() == "unibody":
-            if self.weight_kg < 1500:
-                return "Light Load"
-            else:
-                return "Medium Load"
-        else: # Fallback for unknown chassis types
-            return "Unknown Load Rating"
+from dataclasses import dataclass, asdict
+from typing import Dict, Any
+
+
+@dataclass
+class Chassis:
+    chassis_type: str
+    weight_kg: float
+    material: str | None = None
+
+    def get_load_rating(self) -> str:
+        kind = self.chassis_type.strip().lower()
+        if kind == "body-on-frame":
+            return "Heavy Load" if self.weight_kg >= 2000 else "Medium Load"
+        if kind == "unibody":
+            return "Medium Load" if self.weight_kg >= 1500 else "Light Load"
+        return "Unknown Load Rating"
+
+    def to_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "Chassis":
+        return cls(**data)

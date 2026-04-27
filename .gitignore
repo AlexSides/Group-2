@@ -1,3 +1,5 @@
 __pycache__/
 *.pyc
 .vscode/
+pyside_inventory_full/
+pyside_inventory_refresh/
