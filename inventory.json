@@ -1,0 +1,1388 @@
+[
+  {
+    "class_name": "Car",
+    "stock_id": "CAR-001",
+    "vin": "VIN-CAR-001",
+    "make": "Toyota",
+    "model": "Camry",
+    "trim": "SE",
+    "year": 2020,
+    "color": "Blue",
+    "mileage": 12000,
+    "acquisition_cost": 16000,
+    "reconditioning_cost": 700,
+    "list_price": 21000,
+    "estimated_market_value": 20950,
+    "location_id": "AUS",
+    "status": "Ready for Sale",
+    "notes": "Toyota Camry seeded demo vehicle for inventory testing.",
+    "photo_paths": [
+      "images\\sedan.jpg"
+    ],
+    "date_acquired": "2026-04-16",
+    "depreciation_value": 260,
+    "engine": {
+      "serial_number": "ENG-001",
+      "horsepower": 175,
+      "torque_nm": 220,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "unibody",
+      "weight_kg": 1450,
+      "material": "Steel"
+    },
+    "num_doors": 4,
+    "body_type": "Sedan",
+    "drivetrain": "FWD"
+  },
+  {
+    "class_name": "Car",
+    "stock_id": "CAR-002",
+    "vin": "VIN-CAR-002",
+    "make": "Honda",
+    "model": "Accord",
+    "trim": "Sport",
+    "year": 2021,
+    "color": "White",
+    "mileage": 15100,
+    "acquisition_cost": 17200,
+    "reconditioning_cost": 950,
+    "list_price": 22800,
+    "estimated_market_value": 23100,
+    "location_id": "DAL",
+    "status": "Photo Pending",
+    "notes": "Honda Accord seeded demo vehicle for inventory testing.",
+    "photo_paths": [
+      "images\\sedan.jpg"
+    ],
+    "date_acquired": "2026-04-09",
+    "depreciation_value": 330,
+    "engine": {
+      "serial_number": "ENG-002",
+      "horsepower": 187,
+      "torque_nm": 238,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "unibody",
+      "weight_kg": 1462,
+      "material": "Steel"
+    },
+    "num_doors": 4,
+    "body_type": "Sedan",
+    "drivetrain": "FWD"
+  },
+  {
+    "class_name": "Car",
+    "stock_id": "CAR-003",
+    "vin": "VIN-CAR-003",
+    "make": "Toyota",
+    "model": "Corolla",
+    "trim": "LE",
+    "year": 2022,
+    "color": "Silver",
+    "mileage": 18200,
+    "acquisition_cost": 18400,
+    "reconditioning_cost": 1200,
+    "list_price": 24600,
+    "estimated_market_value": 25250,
+    "location_id": "HOU",
+    "status": "Ready for Sale",
+    "notes": "Toyota Corolla seeded demo vehicle for inventory testing.",
+    "photo_paths": [
+      "images\\sedan.jpg"
+    ],
+    "date_acquired": "2026-04-02",
+    "depreciation_value": 400,
+    "engine": {
+      "serial_number": "ENG-003",
+      "horsepower": 199,
+      "torque_nm": 256,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "unibody",
+      "weight_kg": 1474,
+      "material": "Steel"
+    },
+    "num_doors": 4,
+    "body_type": "Sedan",
+    "drivetrain": "FWD"
+  },
+  {
+    "class_name": "Car",
+    "stock_id": "CAR-004",
+    "vin": "VIN-CAR-004",
+    "make": "Honda",
+    "model": "Civic",
+    "trim": "EX",
+    "year": 2023,
+    "color": "Black",
+    "mileage": 21300,
+    "acquisition_cost": 19600,
+    "reconditioning_cost": 1450,
+    "list_price": 26400,
+    "estimated_market_value": 26350,
+    "location_id": "AUS",
+    "status": "Needs Info Added",
+    "notes": "Honda Civic seeded demo vehicle for inventory testing.",
+    "photo_paths": [
+      "images\\sedan.jpg"
+    ],
+    "date_acquired": "2026-03-26",
+    "depreciation_value": 470,
+    "engine": {
+      "serial_number": "ENG-004",
+      "horsepower": 211,
+      "torque_nm": 274,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "unibody",
+      "weight_kg": 1486,
+      "material": "Steel"
+    },
+    "num_doors": 4,
+    "body_type": "Sedan",
+    "drivetrain": "FWD"
+  },
+  {
+    "class_name": "Car",
+    "stock_id": "CAR-005",
+    "vin": "VIN-CAR-005",
+    "make": "Nissan",
+    "model": "Altima",
+    "trim": "SV",
+    "year": 2020,
+    "color": "Gray",
+    "mileage": 24400,
+    "acquisition_cost": 20800,
+    "reconditioning_cost": 700,
+    "list_price": 28200,
+    "estimated_market_value": 28500,
+    "location_id": "DAL",
+    "status": "Detailing",
+    "notes": "Nissan Altima seeded demo vehicle for inventory testing.",
+    "photo_paths": [
+      "images\\sedan.jpg"
+    ],
+    "date_acquired": "2026-03-19",
+    "depreciation_value": 540,
+    "engine": {
+      "serial_number": "ENG-005",
+      "horsepower": 175,
+      "torque_nm": 292,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "unibody",
+      "weight_kg": 1498,
+      "material": "Steel"
+    },
+    "num_doors": 4,
+    "body_type": "Sedan",
+    "drivetrain": "FWD"
+  },
+  {
+    "class_name": "Car",
+    "stock_id": "CAR-006",
+    "vin": "VIN-CAR-006",
+    "make": "Jeep",
+    "model": "Wrangler",
+    "trim": "Sport",
+    "year": 2021,
+    "color": "Green",
+    "mileage": 27500,
+    "acquisition_cost": 22000,
+    "reconditioning_cost": 950,
+    "list_price": 30000,
+    "estimated_market_value": 30650,
+    "location_id": "HOU",
+    "status": "Ready for Sale",
+    "notes": "Jeep Wrangler seeded demo vehicle for inventory testing.",
+    "photo_paths": [
+      "images\\sedan.jpg"
+    ],
+    "date_acquired": "2026-03-12",
+    "depreciation_value": 610,
+    "engine": {
+      "serial_number": "ENG-006",
+      "horsepower": 187,
+      "torque_nm": 220,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "unibody",
+      "weight_kg": 1510,
+      "material": "Steel"
+    },
+    "num_doors": 4,
+    "body_type": "SUV",
+    "drivetrain": "AWD"
+  },
+  {
+    "class_name": "Car",
+    "stock_id": "CAR-007",
+    "vin": "VIN-CAR-007",
+    "make": "Chevrolet",
+    "model": "Tahoe",
+    "trim": "LT",
+    "year": 2022,
+    "color": "Pearl White",
+    "mileage": 30600,
+    "acquisition_cost": 23200,
+    "reconditioning_cost": 1200,
+    "list_price": 31800,
+    "estimated_market_value": 31750,
+    "location_id": "AUS",
+    "status": "Reserved",
+    "notes": "Chevrolet Tahoe seeded demo vehicle for inventory testing.",
+    "photo_paths": [
+      "images\\sedan.jpg"
+    ],
+    "date_acquired": "2026-03-05",
+    "depreciation_value": 680,
+    "engine": {
+      "serial_number": "ENG-007",
+      "horsepower": 199,
+      "torque_nm": 238,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "unibody",
+      "weight_kg": 1522,
+      "material": "Steel"
+    },
+    "num_doors": 4,
+    "body_type": "SUV",
+    "drivetrain": "FWD"
+  },
+  {
+    "class_name": "Car",
+    "stock_id": "CAR-008",
+    "vin": "VIN-CAR-008",
+    "make": "Hyundai",
+    "model": "Sonata",
+    "trim": "SEL",
+    "year": 2023,
+    "color": "Red",
+    "mileage": 33700,
+    "acquisition_cost": 24400,
+    "reconditioning_cost": 1450,
+    "list_price": 33600,
+    "estimated_market_value": 33900,
+    "location_id": "DAL",
+    "status": "Ready for Sale",
+    "notes": "Hyundai Sonata seeded demo vehicle for inventory testing.",
+    "photo_paths": [
+      "images\\sedan.jpg"
+    ],
+    "date_acquired": "2026-02-26",
+    "depreciation_value": 750,
+    "engine": {
+      "serial_number": "ENG-008",
+      "horsepower": 211,
+      "torque_nm": 256,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "unibody",
+      "weight_kg": 1534,
+      "material": "Steel"
+    },
+    "num_doors": 4,
+    "body_type": "Sedan",
+    "drivetrain": "FWD"
+  },
+  {
+    "class_name": "Car",
+    "stock_id": "CAR-009",
+    "vin": "VIN-CAR-009",
+    "make": "Toyota",
+    "model": "Highlander",
+    "trim": "XLE",
+    "year": 2020,
+    "color": "Black",
+    "mileage": 36800,
+    "acquisition_cost": 25600,
+    "reconditioning_cost": 700,
+    "list_price": 35400,
+    "estimated_market_value": 36050,
+    "location_id": "HOU",
+    "status": "Inspection",
+    "notes": "Toyota Highlander seeded demo vehicle for inventory testing.",
+    "photo_paths": [
+      "images\\sedan.jpg"
+    ],
+    "date_acquired": "2026-02-19",
+    "depreciation_value": 820,
+    "engine": {
+      "serial_number": "ENG-009",
+      "horsepower": 175,
+      "torque_nm": 274,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "unibody",
+      "weight_kg": 1546,
+      "material": "Steel"
+    },
+    "num_doors": 4,
+    "body_type": "SUV",
+    "drivetrain": "AWD"
+  },
+  {
+    "class_name": "Car",
+    "stock_id": "CAR-010",
+    "vin": "VIN-CAR-010",
+    "make": "Subaru",
+    "model": "Forester",
+    "trim": "Premium",
+    "year": 2021,
+    "color": "Gray",
+    "mileage": 39900,
+    "acquisition_cost": 26800,
+    "reconditioning_cost": 950,
+    "list_price": 37200,
+    "estimated_market_value": 37150,
+    "location_id": "AUS",
+    "status": "Ready for Sale",
+    "notes": "Subaru Forester seeded demo vehicle for inventory testing.",
+    "photo_paths": [
+      "images\\sedan.jpg"
+    ],
+    "date_acquired": "2026-02-12",
+    "depreciation_value": 890,
+    "engine": {
+      "serial_number": "ENG-010",
+      "horsepower": 187,
+      "torque_nm": 292,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "unibody",
+      "weight_kg": 1558,
+      "material": "Steel"
+    },
+    "num_doors": 4,
+    "body_type": "SUV",
+    "drivetrain": "AWD"
+  },
+  {
+    "class_name": "Car",
+    "stock_id": "CAR-011",
+    "vin": "VIN-CAR-011",
+    "make": "Mazda",
+    "model": "CX-5",
+    "trim": "Touring",
+    "year": 2022,
+    "color": "Blue",
+    "mileage": 43000,
+    "acquisition_cost": 28000,
+    "reconditioning_cost": 1200,
+    "list_price": 39000,
+    "estimated_market_value": 39300,
+    "location_id": "DAL",
+    "status": "Ready for Sale",
+    "notes": "Mazda CX-5 seeded demo vehicle for inventory testing.",
+    "photo_paths": [
+      "images\\sedan.jpg"
+    ],
+    "date_acquired": "2026-02-05",
+    "depreciation_value": 960,
+    "engine": {
+      "serial_number": "ENG-011",
+      "horsepower": 199,
+      "torque_nm": 220,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "unibody",
+      "weight_kg": 1570,
+      "material": "Steel"
+    },
+    "num_doors": 4,
+    "body_type": "SUV",
+    "drivetrain": "AWD"
+  },
+  {
+    "class_name": "Car",
+    "stock_id": "CAR-012",
+    "vin": "VIN-CAR-012",
+    "make": "Kia",
+    "model": "Sorento",
+    "trim": "EX",
+    "year": 2023,
+    "color": "Silver",
+    "mileage": 46100,
+    "acquisition_cost": 29200,
+    "reconditioning_cost": 1450,
+    "list_price": 40800,
+    "estimated_market_value": 41450,
+    "location_id": "HOU",
+    "status": "Needs Info Added",
+    "notes": "Kia Sorento seeded demo vehicle for inventory testing.",
+    "photo_paths": [
+      "images\\sedan.jpg"
+    ],
+    "date_acquired": "2026-01-29",
+    "depreciation_value": 1030,
+    "engine": {
+      "serial_number": "ENG-012",
+      "horsepower": 211,
+      "torque_nm": 238,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "unibody",
+      "weight_kg": 1582,
+      "material": "Steel"
+    },
+    "num_doors": 4,
+    "body_type": "SUV",
+    "drivetrain": "AWD"
+  },
+  {
+    "class_name": "Truck",
+    "stock_id": "TRK-013",
+    "vin": "VIN-TRK-013",
+    "make": "Ford",
+    "model": "F-150",
+    "trim": "XLT",
+    "year": 2021,
+    "color": "Black",
+    "mileage": 9000,
+    "acquisition_cost": 28500,
+    "reconditioning_cost": 1000,
+    "list_price": 36000,
+    "estimated_market_value": 35900,
+    "location_id": "AUS",
+    "status": "Ready for Sale",
+    "notes": "Ford F-150 seeded demo truck for lot analysis.",
+    "photo_paths": [
+      "images\\ford_f150_pd.jpg",
+      "images\\truck.jpg"
+    ],
+    "date_acquired": "2026-04-18",
+    "depreciation_value": 340,
+    "engine": {
+      "serial_number": "ENG-013",
+      "horsepower": 285,
+      "torque_nm": 380,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "body-on-frame",
+      "weight_kg": 2200,
+      "material": "Steel"
+    },
+    "payload_capacity_lb": 1450,
+    "towing_capacity_lb": 6800,
+    "drive_type": "4x4",
+    "bed_length": "Short"
+  },
+  {
+    "class_name": "Truck",
+    "stock_id": "TRK-014",
+    "vin": "VIN-TRK-014",
+    "make": "Chevrolet",
+    "model": "Silverado",
+    "trim": "LT",
+    "year": 2022,
+    "color": "Gray",
+    "mileage": 11700,
+    "acquisition_cost": 30000,
+    "reconditioning_cost": 1320,
+    "list_price": 38200,
+    "estimated_market_value": 38600,
+    "location_id": "DAL",
+    "status": "Inspection",
+    "notes": "Chevrolet Silverado seeded demo truck for lot analysis.",
+    "photo_paths": [
+      "images\\truck.jpg"
+    ],
+    "date_acquired": "2026-04-12",
+    "depreciation_value": 430,
+    "engine": {
+      "serial_number": "ENG-014",
+      "horsepower": 307,
+      "torque_nm": 418,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "body-on-frame",
+      "weight_kg": 2220,
+      "material": "Steel"
+    },
+    "payload_capacity_lb": 1485,
+    "towing_capacity_lb": 7190,
+    "drive_type": "4x2",
+    "bed_length": "Standard"
+  },
+  {
+    "class_name": "Truck",
+    "stock_id": "TRK-015",
+    "vin": "VIN-TRK-015",
+    "make": "Ram",
+    "model": "1500",
+    "trim": "Big Horn",
+    "year": 2023,
+    "color": "Blue",
+    "mileage": 14400,
+    "acquisition_cost": 31500,
+    "reconditioning_cost": 1640,
+    "list_price": 40400,
+    "estimated_market_value": 41300,
+    "location_id": "HOU",
+    "status": "Ready for Sale",
+    "notes": "Ram 1500 seeded demo truck for lot analysis.",
+    "photo_paths": [
+      "images\\ford_f150_pd.jpg",
+      "images\\truck.jpg"
+    ],
+    "date_acquired": "2026-04-06",
+    "depreciation_value": 520,
+    "engine": {
+      "serial_number": "ENG-015",
+      "horsepower": 329,
+      "torque_nm": 456,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "body-on-frame",
+      "weight_kg": 2240,
+      "material": "Steel"
+    },
+    "payload_capacity_lb": 1520,
+    "towing_capacity_lb": 7580,
+    "drive_type": "4x4",
+    "bed_length": "Standard"
+  },
+  {
+    "class_name": "Truck",
+    "stock_id": "TRK-016",
+    "vin": "VIN-TRK-016",
+    "make": "Toyota",
+    "model": "Tacoma",
+    "trim": "TRD Sport",
+    "year": 2021,
+    "color": "Orange",
+    "mileage": 17100,
+    "acquisition_cost": 33000,
+    "reconditioning_cost": 1960,
+    "list_price": 42600,
+    "estimated_market_value": 42500,
+    "location_id": "AUS",
+    "status": "Needs Info Added",
+    "notes": "Toyota Tacoma seeded demo truck for lot analysis.",
+    "photo_paths": [
+      "images\\truck.jpg"
+    ],
+    "date_acquired": "2026-03-31",
+    "depreciation_value": 610,
+    "engine": {
+      "serial_number": "ENG-016",
+      "horsepower": 351,
+      "torque_nm": 494,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "body-on-frame",
+      "weight_kg": 2260,
+      "material": "Steel"
+    },
+    "payload_capacity_lb": 1555,
+    "towing_capacity_lb": 7970,
+    "drive_type": "4x2",
+    "bed_length": "Short"
+  },
+  {
+    "class_name": "Truck",
+    "stock_id": "TRK-017",
+    "vin": "VIN-TRK-017",
+    "make": "GMC",
+    "model": "Sierra 1500",
+    "trim": "SLE",
+    "year": 2022,
+    "color": "White",
+    "mileage": 19800,
+    "acquisition_cost": 34500,
+    "reconditioning_cost": 1000,
+    "list_price": 44800,
+    "estimated_market_value": 45200,
+    "location_id": "DAL",
+    "status": "Repair Needed",
+    "notes": "GMC Sierra 1500 seeded demo truck for lot analysis.",
+    "photo_paths": [
+      "images\\ford_f150_pd.jpg",
+      "images\\truck.jpg"
+    ],
+    "date_acquired": "2026-03-25",
+    "depreciation_value": 700,
+    "engine": {
+      "serial_number": "ENG-017",
+      "horsepower": 373,
+      "torque_nm": 532,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "body-on-frame",
+      "weight_kg": 2280,
+      "material": "Steel"
+    },
+    "payload_capacity_lb": 1590,
+    "towing_capacity_lb": 8360,
+    "drive_type": "4x4",
+    "bed_length": "Standard"
+  },
+  {
+    "class_name": "Truck",
+    "stock_id": "TRK-018",
+    "vin": "VIN-TRK-018",
+    "make": "Ford",
+    "model": "Ranger",
+    "trim": "Lariat",
+    "year": 2023,
+    "color": "Gray",
+    "mileage": 22500,
+    "acquisition_cost": 36000,
+    "reconditioning_cost": 1320,
+    "list_price": 47000,
+    "estimated_market_value": 47900,
+    "location_id": "HOU",
+    "status": "Ready for Sale",
+    "notes": "Ford Ranger seeded demo truck for lot analysis.",
+    "photo_paths": [
+      "images\\truck.jpg"
+    ],
+    "date_acquired": "2026-03-19",
+    "depreciation_value": 790,
+    "engine": {
+      "serial_number": "ENG-018",
+      "horsepower": 285,
+      "torque_nm": 380,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "body-on-frame",
+      "weight_kg": 2300,
+      "material": "Steel"
+    },
+    "payload_capacity_lb": 1625,
+    "towing_capacity_lb": 8750,
+    "drive_type": "4x2",
+    "bed_length": "Standard"
+  },
+  {
+    "class_name": "Truck",
+    "stock_id": "TRK-019",
+    "vin": "VIN-TRK-019",
+    "make": "Nissan",
+    "model": "Frontier",
+    "trim": "PRO-4X",
+    "year": 2021,
+    "color": "Red",
+    "mileage": 25200,
+    "acquisition_cost": 37500,
+    "reconditioning_cost": 1640,
+    "list_price": 49200,
+    "estimated_market_value": 49100,
+    "location_id": "AUS",
+    "status": "Detailing",
+    "notes": "Nissan Frontier seeded demo truck for lot analysis.",
+    "photo_paths": [
+      "images\\ford_f150_pd.jpg",
+      "images\\truck.jpg"
+    ],
+    "date_acquired": "2026-03-13",
+    "depreciation_value": 880,
+    "engine": {
+      "serial_number": "ENG-019",
+      "horsepower": 307,
+      "torque_nm": 418,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "body-on-frame",
+      "weight_kg": 2320,
+      "material": "Steel"
+    },
+    "payload_capacity_lb": 1660,
+    "towing_capacity_lb": 9140,
+    "drive_type": "4x4",
+    "bed_length": "Short"
+  },
+  {
+    "class_name": "Truck",
+    "stock_id": "TRK-020",
+    "vin": "VIN-TRK-020",
+    "make": "Toyota",
+    "model": "Tundra",
+    "trim": "Limited",
+    "year": 2022,
+    "color": "White",
+    "mileage": 27900,
+    "acquisition_cost": 39000,
+    "reconditioning_cost": 1960,
+    "list_price": 51400,
+    "estimated_market_value": 51800,
+    "location_id": "DAL",
+    "status": "Needs Info Added",
+    "notes": "Toyota Tundra seeded demo truck for lot analysis.",
+    "photo_paths": [
+      "images\\truck.jpg"
+    ],
+    "date_acquired": "2026-03-07",
+    "depreciation_value": 970,
+    "engine": {
+      "serial_number": "ENG-020",
+      "horsepower": 329,
+      "torque_nm": 456,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "body-on-frame",
+      "weight_kg": 2340,
+      "material": "Steel"
+    },
+    "payload_capacity_lb": 1695,
+    "towing_capacity_lb": 9530,
+    "drive_type": "4x2",
+    "bed_length": "Standard"
+  },
+  {
+    "class_name": "Truck",
+    "stock_id": "TRK-021",
+    "vin": "VIN-TRK-021",
+    "make": "Chevrolet",
+    "model": "Colorado",
+    "trim": "Z71",
+    "year": 2023,
+    "color": "Sand",
+    "mileage": 30600,
+    "acquisition_cost": 40500,
+    "reconditioning_cost": 1000,
+    "list_price": 53600,
+    "estimated_market_value": 54500,
+    "location_id": "HOU",
+    "status": "Photo Pending",
+    "notes": "Chevrolet Colorado seeded demo truck for lot analysis.",
+    "photo_paths": [
+      "images\\ford_f150_pd.jpg",
+      "images\\truck.jpg"
+    ],
+    "date_acquired": "2026-03-01",
+    "depreciation_value": 1060,
+    "engine": {
+      "serial_number": "ENG-021",
+      "horsepower": 351,
+      "torque_nm": 494,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "body-on-frame",
+      "weight_kg": 2360,
+      "material": "Steel"
+    },
+    "payload_capacity_lb": 1730,
+    "towing_capacity_lb": 9920,
+    "drive_type": "4x4",
+    "bed_length": "Standard"
+  },
+  {
+    "class_name": "Truck",
+    "stock_id": "TRK-022",
+    "vin": "VIN-TRK-022",
+    "make": "GMC",
+    "model": "Canyon",
+    "trim": "AT4",
+    "year": 2021,
+    "color": "Bronze",
+    "mileage": 33300,
+    "acquisition_cost": 42000,
+    "reconditioning_cost": 1320,
+    "list_price": 55800,
+    "estimated_market_value": 55700,
+    "location_id": "AUS",
+    "status": "Ready for Sale",
+    "notes": "GMC Canyon seeded demo truck for lot analysis.",
+    "photo_paths": [
+      "images\\truck.jpg"
+    ],
+    "date_acquired": "2026-02-23",
+    "depreciation_value": 1150,
+    "engine": {
+      "serial_number": "ENG-022",
+      "horsepower": 373,
+      "torque_nm": 532,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "body-on-frame",
+      "weight_kg": 2380,
+      "material": "Steel"
+    },
+    "payload_capacity_lb": 1765,
+    "towing_capacity_lb": 10310,
+    "drive_type": "4x2",
+    "bed_length": "Short"
+  },
+  {
+    "class_name": "Truck",
+    "stock_id": "TRK-023",
+    "vin": "VIN-TRK-023",
+    "make": "Ford",
+    "model": "F-150",
+    "trim": "Lariat",
+    "year": 2022,
+    "color": "Silver",
+    "mileage": 36000,
+    "acquisition_cost": 43500,
+    "reconditioning_cost": 1640,
+    "list_price": 58000,
+    "estimated_market_value": 58400,
+    "location_id": "DAL",
+    "status": "Ready for Sale",
+    "notes": "Ford F-150 seeded demo truck for lot analysis.",
+    "photo_paths": [
+      "images\\ford_f150_pd.jpg",
+      "images\\truck.jpg"
+    ],
+    "date_acquired": "2026-02-17",
+    "depreciation_value": 1240,
+    "engine": {
+      "serial_number": "ENG-023",
+      "horsepower": 285,
+      "torque_nm": 380,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "body-on-frame",
+      "weight_kg": 2400,
+      "material": "Steel"
+    },
+    "payload_capacity_lb": 1800,
+    "towing_capacity_lb": 10700,
+    "drive_type": "4x4",
+    "bed_length": "Standard"
+  },
+  {
+    "class_name": "Truck",
+    "stock_id": "TRK-024",
+    "vin": "VIN-TRK-024",
+    "make": "Chevrolet",
+    "model": "Silverado",
+    "trim": "RST",
+    "year": 2023,
+    "color": "Black",
+    "mileage": 38700,
+    "acquisition_cost": 45000,
+    "reconditioning_cost": 1960,
+    "list_price": 60200,
+    "estimated_market_value": 61100,
+    "location_id": "HOU",
+    "status": "Reserved",
+    "notes": "Chevrolet Silverado seeded demo truck for lot analysis.",
+    "photo_paths": [
+      "images\\truck.jpg"
+    ],
+    "date_acquired": "2026-02-11",
+    "depreciation_value": 1330,
+    "engine": {
+      "serial_number": "ENG-024",
+      "horsepower": 307,
+      "torque_nm": 418,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "body-on-frame",
+      "weight_kg": 2420,
+      "material": "Steel"
+    },
+    "payload_capacity_lb": 1835,
+    "towing_capacity_lb": 11090,
+    "drive_type": "4x2",
+    "bed_length": "Standard"
+  },
+  {
+    "class_name": "Motorcycle",
+    "stock_id": "MOTO-025",
+    "vin": "VIN-MOTO-025",
+    "make": "Yamaha",
+    "model": "R1",
+    "trim": "Base",
+    "year": 2021,
+    "color": "Red",
+    "mileage": 1800,
+    "acquisition_cost": 4800,
+    "reconditioning_cost": 250,
+    "list_price": 6900,
+    "estimated_market_value": 6920,
+    "location_id": "AUS",
+    "status": "Needs Info Added",
+    "notes": "Yamaha R1 seeded demo motorcycle for lot analysis.",
+    "photo_paths": [
+      "images\\motorcycle.jpg"
+    ],
+    "date_acquired": "2026-04-20",
+    "depreciation_value": 120,
+    "engine": {
+      "serial_number": "ENG-025",
+      "horsepower": 45,
+      "torque_nm": 40,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "trellis",
+      "weight_kg": 190,
+      "material": "Aluminum"
+    },
+    "engine_displacement_cc": 390,
+    "is_sport_bike": true,
+    "bike_type": "Sport"
+  },
+  {
+    "class_name": "Motorcycle",
+    "stock_id": "MOTO-026",
+    "vin": "VIN-MOTO-026",
+    "make": "Kawasaki",
+    "model": "Ninja 650",
+    "trim": "ABS",
+    "year": 2022,
+    "color": "Green",
+    "mileage": 2750,
+    "acquisition_cost": 5500,
+    "reconditioning_cost": 390,
+    "list_price": 7850,
+    "estimated_market_value": 8050,
+    "location_id": "DAL",
+    "status": "Ready for Sale",
+    "notes": "Kawasaki Ninja 650 seeded demo motorcycle for lot analysis.",
+    "photo_paths": [
+      "images\\motorcycle.jpg"
+    ],
+    "date_acquired": "2026-04-12",
+    "depreciation_value": 165,
+    "engine": {
+      "serial_number": "ENG-026",
+      "horsepower": 63,
+      "torque_nm": 54,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "steel frame",
+      "weight_kg": 193,
+      "material": "Steel"
+    },
+    "engine_displacement_cc": 445,
+    "is_sport_bike": false,
+    "bike_type": "Touring"
+  },
+  {
+    "class_name": "Motorcycle",
+    "stock_id": "MOTO-027",
+    "vin": "VIN-MOTO-027",
+    "make": "Harley-Davidson",
+    "model": "Street Bob",
+    "trim": "114",
+    "year": 2023,
+    "color": "Black",
+    "mileage": 3700,
+    "acquisition_cost": 6200,
+    "reconditioning_cost": 530,
+    "list_price": 8800,
+    "estimated_market_value": 9180,
+    "location_id": "HOU",
+    "status": "Ready for Sale",
+    "notes": "Harley-Davidson Street Bob seeded demo motorcycle for lot analysis.",
+    "photo_paths": [
+      "images\\motorcycle.jpg"
+    ],
+    "date_acquired": "2026-04-04",
+    "depreciation_value": 210,
+    "engine": {
+      "serial_number": "ENG-027",
+      "horsepower": 81,
+      "torque_nm": 68,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "steel frame",
+      "weight_kg": 196,
+      "material": "Steel"
+    },
+    "engine_displacement_cc": 500,
+    "is_sport_bike": false,
+    "bike_type": "Cruiser"
+  },
+  {
+    "class_name": "Motorcycle",
+    "stock_id": "MOTO-028",
+    "vin": "VIN-MOTO-028",
+    "make": "Ducati",
+    "model": "Monster",
+    "trim": "937",
+    "year": 2021,
+    "color": "Red",
+    "mileage": 4650,
+    "acquisition_cost": 6900,
+    "reconditioning_cost": 250,
+    "list_price": 9750,
+    "estimated_market_value": 9770,
+    "location_id": "AUS",
+    "status": "Ready for Sale",
+    "notes": "Ducati Monster seeded demo motorcycle for lot analysis.",
+    "photo_paths": [
+      "images\\motorcycle.jpg"
+    ],
+    "date_acquired": "2026-03-27",
+    "depreciation_value": 255,
+    "engine": {
+      "serial_number": "ENG-028",
+      "horsepower": 99,
+      "torque_nm": 82,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "trellis",
+      "weight_kg": 199,
+      "material": "Aluminum"
+    },
+    "engine_displacement_cc": 555,
+    "is_sport_bike": true,
+    "bike_type": "Sport"
+  },
+  {
+    "class_name": "Motorcycle",
+    "stock_id": "MOTO-029",
+    "vin": "VIN-MOTO-029",
+    "make": "BMW",
+    "model": "R 1250 GS",
+    "trim": "Adventure",
+    "year": 2022,
+    "color": "White",
+    "mileage": 5600,
+    "acquisition_cost": 7600,
+    "reconditioning_cost": 390,
+    "list_price": 10700,
+    "estimated_market_value": 10900,
+    "location_id": "DAL",
+    "status": "Inspection",
+    "notes": "BMW R 1250 GS seeded demo motorcycle for lot analysis.",
+    "photo_paths": [
+      "images\\motorcycle.jpg"
+    ],
+    "date_acquired": "2026-03-19",
+    "depreciation_value": 300,
+    "engine": {
+      "serial_number": "ENG-029",
+      "horsepower": 117,
+      "torque_nm": 40,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "steel frame",
+      "weight_kg": 202,
+      "material": "Steel"
+    },
+    "engine_displacement_cc": 610,
+    "is_sport_bike": false,
+    "bike_type": "Touring"
+  },
+  {
+    "class_name": "Motorcycle",
+    "stock_id": "MOTO-030",
+    "vin": "VIN-MOTO-030",
+    "make": "Honda",
+    "model": "CBR650R",
+    "trim": "ABS",
+    "year": 2023,
+    "color": "Black",
+    "mileage": 6550,
+    "acquisition_cost": 8300,
+    "reconditioning_cost": 530,
+    "list_price": 11650,
+    "estimated_market_value": 12030,
+    "location_id": "HOU",
+    "status": "Ready for Sale",
+    "notes": "Honda CBR650R seeded demo motorcycle for lot analysis.",
+    "photo_paths": [
+      "images\\motorcycle.jpg"
+    ],
+    "date_acquired": "2026-03-11",
+    "depreciation_value": 345,
+    "engine": {
+      "serial_number": "ENG-030",
+      "horsepower": 45,
+      "torque_nm": 54,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "trellis",
+      "weight_kg": 205,
+      "material": "Aluminum"
+    },
+    "engine_displacement_cc": 665,
+    "is_sport_bike": true,
+    "bike_type": "Sport"
+  },
+  {
+    "class_name": "Motorcycle",
+    "stock_id": "MOTO-031",
+    "vin": "VIN-MOTO-031",
+    "make": "Yamaha",
+    "model": "MT-07",
+    "trim": "Base",
+    "year": 2021,
+    "color": "Gray",
+    "mileage": 7500,
+    "acquisition_cost": 9000,
+    "reconditioning_cost": 250,
+    "list_price": 12600,
+    "estimated_market_value": 12620,
+    "location_id": "AUS",
+    "status": "Photo Pending",
+    "notes": "Yamaha MT-07 seeded demo motorcycle for lot analysis.",
+    "photo_paths": [
+      "images\\motorcycle.jpg"
+    ],
+    "date_acquired": "2026-03-03",
+    "depreciation_value": 390,
+    "engine": {
+      "serial_number": "ENG-031",
+      "horsepower": 63,
+      "torque_nm": 68,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "steel frame",
+      "weight_kg": 208,
+      "material": "Steel"
+    },
+    "engine_displacement_cc": 720,
+    "is_sport_bike": false,
+    "bike_type": "Touring"
+  },
+  {
+    "class_name": "Motorcycle",
+    "stock_id": "MOTO-032",
+    "vin": "VIN-MOTO-032",
+    "make": "Suzuki",
+    "model": "GSX-R750",
+    "trim": "Base",
+    "year": 2022,
+    "color": "Blue",
+    "mileage": 8450,
+    "acquisition_cost": 9700,
+    "reconditioning_cost": 390,
+    "list_price": 13550,
+    "estimated_market_value": 13750,
+    "location_id": "DAL",
+    "status": "Detailing",
+    "notes": "Suzuki GSX-R750 seeded demo motorcycle for lot analysis.",
+    "photo_paths": [
+      "images\\motorcycle.jpg"
+    ],
+    "date_acquired": "2026-02-23",
+    "depreciation_value": 435,
+    "engine": {
+      "serial_number": "ENG-032",
+      "horsepower": 81,
+      "torque_nm": 82,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "trellis",
+      "weight_kg": 211,
+      "material": "Aluminum"
+    },
+    "engine_displacement_cc": 775,
+    "is_sport_bike": true,
+    "bike_type": "Sport"
+  },
+  {
+    "class_name": "Motorcycle",
+    "stock_id": "MOTO-033",
+    "vin": "VIN-MOTO-033",
+    "make": "Harley-Davidson",
+    "model": "Iron 883",
+    "trim": "Base",
+    "year": 2023,
+    "color": "Matte Black",
+    "mileage": 9400,
+    "acquisition_cost": 10400,
+    "reconditioning_cost": 530,
+    "list_price": 14500,
+    "estimated_market_value": 14880,
+    "location_id": "HOU",
+    "status": "Ready for Sale",
+    "notes": "Harley-Davidson Iron 883 seeded demo motorcycle for lot analysis.",
+    "photo_paths": [
+      "images\\motorcycle.jpg"
+    ],
+    "date_acquired": "2026-02-15",
+    "depreciation_value": 480,
+    "engine": {
+      "serial_number": "ENG-033",
+      "horsepower": 99,
+      "torque_nm": 40,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "steel frame",
+      "weight_kg": 214,
+      "material": "Steel"
+    },
+    "engine_displacement_cc": 830,
+    "is_sport_bike": false,
+    "bike_type": "Cruiser"
+  },
+  {
+    "class_name": "Motorcycle",
+    "stock_id": "MOTO-034",
+    "vin": "VIN-MOTO-034",
+    "make": "KTM",
+    "model": "390 Duke",
+    "trim": "Base",
+    "year": 2021,
+    "color": "Orange",
+    "mileage": 10350,
+    "acquisition_cost": 11100,
+    "reconditioning_cost": 250,
+    "list_price": 15450,
+    "estimated_market_value": 15470,
+    "location_id": "AUS",
+    "status": "Ready for Sale",
+    "notes": "KTM 390 Duke seeded demo motorcycle for lot analysis.",
+    "photo_paths": [
+      "images\\motorcycle.jpg"
+    ],
+    "date_acquired": "2026-02-07",
+    "depreciation_value": 525,
+    "engine": {
+      "serial_number": "ENG-034",
+      "horsepower": 117,
+      "torque_nm": 54,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "steel frame",
+      "weight_kg": 217,
+      "material": "Steel"
+    },
+    "engine_displacement_cc": 885,
+    "is_sport_bike": false,
+    "bike_type": "Touring"
+  },
+  {
+    "class_name": "Motorcycle",
+    "stock_id": "MOTO-035",
+    "vin": "VIN-MOTO-035",
+    "make": "Triumph",
+    "model": "Street Triple",
+    "trim": "R",
+    "year": 2022,
+    "color": "Silver",
+    "mileage": 11300,
+    "acquisition_cost": 11800,
+    "reconditioning_cost": 390,
+    "list_price": 16400,
+    "estimated_market_value": 16600,
+    "location_id": "DAL",
+    "status": "Needs Info Added",
+    "notes": "Triumph Street Triple seeded demo motorcycle for lot analysis.",
+    "photo_paths": [
+      "images\\motorcycle.jpg"
+    ],
+    "date_acquired": "2026-01-30",
+    "depreciation_value": 570,
+    "engine": {
+      "serial_number": "ENG-035",
+      "horsepower": 45,
+      "torque_nm": 68,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "trellis",
+      "weight_kg": 220,
+      "material": "Aluminum"
+    },
+    "engine_displacement_cc": 940,
+    "is_sport_bike": true,
+    "bike_type": "Sport"
+  },
+  {
+    "class_name": "Motorcycle",
+    "stock_id": "MOTO-036",
+    "vin": "VIN-MOTO-036",
+    "make": "Kawasaki",
+    "model": "Versys 650",
+    "trim": "LT",
+    "year": 2023,
+    "color": "Green",
+    "mileage": 12250,
+    "acquisition_cost": 12500,
+    "reconditioning_cost": 530,
+    "list_price": 17350,
+    "estimated_market_value": 17730,
+    "location_id": "HOU",
+    "status": "Ready for Sale",
+    "notes": "Kawasaki Versys 650 seeded demo motorcycle for lot analysis.",
+    "photo_paths": [
+      "images\\motorcycle.jpg"
+    ],
+    "date_acquired": "2026-01-22",
+    "depreciation_value": 615,
+    "engine": {
+      "serial_number": "ENG-036",
+      "horsepower": 63,
+      "torque_nm": 82,
+      "fuel_type": "Gasoline",
+      "cylinder_count": null
+    },
+    "chassis": {
+      "chassis_type": "steel frame",
+      "weight_kg": 223,
+      "material": "Steel"
+    },
+    "engine_displacement_cc": 995,
+    "is_sport_bike": false,
+    "bike_type": "Touring"
+  }
+]
