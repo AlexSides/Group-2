@@ -201,6 +201,41 @@ class InventoryManager:
         for record in records:
             vehicle = self._vehicle_from_dict(record)
             self.add_vehicle(vehicle)
+            
+    def generate_performance_report(self) -> str:
+        trucks = [
+            vehicle for vehicle in self.inventory.values()
+            if isinstance(vehicle, Truck)
+        ]
+
+        if trucks:
+            average_truck_horsepower = sum(
+                truck.engine.horsepower for truck in trucks
+            ) / len(trucks)
+
+            highest_payload = max(
+                truck.payload_capacity_lb for truck in trucks
+            )
+        else:
+            average_truck_horsepower = 0
+            highest_payload = 0
+
+        total_projected_value = sum(
+            vehicle.calculate_selling_price()
+            for vehicle in self.inventory.values()
+        )
+
+        report = (
+            "\n========== ENGINEERING PERFORMANCE REPORT ==========\n"
+            f"Total Vehicles in Inventory: {len(self.inventory)}\n"
+            f"Average Truck Horsepower: {average_truck_horsepower:.2f} HP\n"
+            f"Highest Truck Payload Capacity: {highest_payload} lb\n"
+            f"Total Projected Inventory Value: ${total_projected_value:,.2f}\n"
+            "====================================================\n"
+        )
+
+        print(report)
+        return report
 
     def _vehicle_from_dict(self, record: Dict[str, Any]) -> Vehicle:
         class_name = record.pop("class_name")
