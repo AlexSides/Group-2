@@ -1,6 +1,6 @@
 import sys
 from PySide6.QtWidgets import QApplication
-from gui import InventoryApp
+from inventory_app.ui import InventoryApp
 
 
 def main() -> None:

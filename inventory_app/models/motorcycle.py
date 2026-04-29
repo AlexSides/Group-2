@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Dict
 
-from Vehicle import Vehicle
+from .vehicle import Vehicle
 
 
 @dataclass

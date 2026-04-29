@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import Any, Dict
 
-from InventoryManager import InventoryManager
-from LocationManager import LocationManager
-from Vehicle import Vehicle
+from .inventory_manager import InventoryManager
+from ..models.location_manager import LocationManager
+from ..models.vehicle import Vehicle
 
 STATUS_ORDER = [
     "Ready for Sale",

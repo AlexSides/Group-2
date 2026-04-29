@@ -4,12 +4,12 @@ import json
 from pathlib import Path
 from typing import Dict, Any, Iterable, List
 
-from Car import Car
-from Truck import Truck
-from Motorcycle import Motorcycle
-from Vehicle import Vehicle
-from Engine import Engine
-from Chassis import Chassis
+from ..models.car import Car
+from ..models.truck import Truck
+from ..models.motorcycle import Motorcycle
+from ..models.vehicle import Vehicle
+from ..models.engine import Engine
+from ..models.chassis import Chassis
 
 
 STATUS_READY = "Ready for Sale"
@@ -201,40 +201,51 @@ class InventoryManager:
         for record in records:
             vehicle = self._vehicle_from_dict(record)
             self.add_vehicle(vehicle)
-            
-    def generate_performance_report(self) -> str:
-        trucks = [
-            vehicle for vehicle in self.inventory.values()
-            if isinstance(vehicle, Truck)
-        ]
 
-        if trucks:
-            average_truck_horsepower = sum(
-                truck.engine.horsepower for truck in trucks
-            ) / len(trucks)
-
-            highest_payload = max(
-                truck.payload_capacity_lb for truck in trucks
-            )
-        else:
-            average_truck_horsepower = 0
-            highest_payload = 0
-
-        total_projected_value = sum(
-            vehicle.calculate_selling_price()
-            for vehicle in self.inventory.values()
+    def performance_report_data(self) -> Dict[str, Any]:
+        vehicles = self.all_vehicles()
+        trucks = [vehicle for vehicle in vehicles if isinstance(vehicle, Truck)]
+        average_truck_horsepower = (
+            sum(truck.engine.horsepower for truck in trucks) / len(trucks)
+            if trucks else 0.0
         )
+        highest_payload = max((truck.payload_capacity_lb for truck in trucks), default=0)
+        total_projected_value = sum(vehicle.calculate_selling_price() for vehicle in vehicles)
+        return {
+            "total_vehicles": len(vehicles),
+            "average_truck_horsepower": average_truck_horsepower,
+            "highest_payload_capacity": highest_payload,
+            "total_projected_inventory_value": total_projected_value,
+            "total_investment": self.total_investment(vehicles),
+            "total_list_value": self.total_list_value(vehicles),
+            "total_market_value": self.total_market_value(vehicles),
+            "expected_gross_profit": self.expected_gross_profit(vehicles),
+            "average_days_on_lot": self.average_days_on_lot(vehicles),
+            "aged_units_60": len(self.aged_units(60, vehicles)),
+            "ready_for_sale_percent": self.ready_for_sale_percent(vehicles),
+            "photo_missing_count": self.photo_missing_count(vehicles),
+        }
 
+    def generate_performance_report(self, print_report: bool = True) -> str:
+        data = self.performance_report_data()
         report = (
-            "\n========== ENGINEERING PERFORMANCE REPORT ==========\n"
-            f"Total Vehicles in Inventory: {len(self.inventory)}\n"
-            f"Average Truck Horsepower: {average_truck_horsepower:.2f} HP\n"
-            f"Highest Truck Payload Capacity: {highest_payload} lb\n"
-            f"Total Projected Inventory Value: ${total_projected_value:,.2f}\n"
-            "====================================================\n"
+            "========== ENGINEERING PERFORMANCE REPORT ==========\n"
+            f"Total Vehicles in Inventory: {data['total_vehicles']}\n"
+            f"Ready for Sale Rate: {data['ready_for_sale_percent']:.2f}%\n"
+            f"Aged Units (60+ Days): {data['aged_units_60']}\n"
+            f"Average Days on Lot: {data['average_days_on_lot']:.2f}\n"
+            f"Photo Missing Count: {data['photo_missing_count']}\n"
+            f"Average Truck Horsepower: {data['average_truck_horsepower']:.2f} HP\n"
+            f"Highest Truck Payload Capacity: {data['highest_payload_capacity']} lb\n"
+            f"Total Investment: ${data['total_investment']:,.2f}\n"
+            f"Total List Value: ${data['total_list_value']:,.2f}\n"
+            f"Expected Gross Profit: ${data['expected_gross_profit']:,.2f}\n"
+            f"Total Projected Inventory Value: ${data['total_projected_inventory_value']:,.2f}\n"
+            "===================================================="
         )
 
-        print(report)
+        if print_report:
+            print(report)
         return report
 
     def _vehicle_from_dict(self, record: Dict[str, Any]) -> Vehicle:

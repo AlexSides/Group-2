@@ -3,13 +3,13 @@ from __future__ import annotations
 from datetime import date, timedelta
 from pathlib import Path
 
-from Car import Car
-from Chassis import Chassis
-from Engine import Engine
-from InventoryManager import InventoryManager
-from LocationManager import Location, LocationManager
-from Motorcycle import Motorcycle
-from Truck import Truck
+from ..models.car import Car
+from ..models.chassis import Chassis
+from ..models.engine import Engine
+from .inventory_manager import InventoryManager
+from ..models.location_manager import Location, LocationManager
+from ..models.motorcycle import Motorcycle
+from ..models.truck import Truck
 
 STATUSES = [
     "Ready for Sale",
@@ -44,13 +44,27 @@ def _photo(paths: dict[str, list[str]], key: str) -> list[str]:
     return list(paths.get(key, []))
 
 
+def _stored_photo_path(images_dir: Path, filename: str) -> str:
+    if images_dir.is_absolute():
+        return str(Path(images_dir.name) / filename)
+    return str(images_dir / filename)
+
+
+def _actual_photo_exists(images_dir: Path, filename: str) -> bool:
+    return (images_dir / filename).exists()
+
+
 def build_seed_vehicles(images_dir: str | Path):
     images = Path(images_dir)
     photo_sets = {
-        "car": [str(images / "sedan.jpg")],
-        "truck": [str(images / "truck.jpg")],
-        "truck_alt": [p for p in [str(images / "ford_f150_pd.jpg"), str(images / "truck.jpg")] if Path(p).exists()],
-        "moto": [str(images / "motorcycle.jpg")],
+        "car": [_stored_photo_path(images, "sedan.jpg")],
+        "truck": [_stored_photo_path(images, "truck.jpg")],
+        "truck_alt": [
+            _stored_photo_path(images, filename)
+            for filename in ["ford_f150_pd.jpg", "truck.jpg"]
+            if _actual_photo_exists(images, filename)
+        ],
+        "moto": [_stored_photo_path(images, "motorcycle.jpg")],
     }
 
     vehicles = []
@@ -146,9 +160,9 @@ def build_seed_vehicles(images_dir: str | Path):
 
 
 def seed_inventory(inventory_manager: InventoryManager, location_manager: LocationManager, images_dir: str | Path):
+    ensure_locations(location_manager)
     if inventory_manager.all_vehicles():
         return inventory_manager.all_vehicles()
-    ensure_locations(location_manager)
     vehicles = build_seed_vehicles(images_dir)
     for vehicle in vehicles:
         inventory_manager.add_vehicle(vehicle)

@@ -5,8 +5,8 @@ from dataclasses import dataclass, field
 from datetime import date, datetime
 from typing import Any, Dict, List
 
-from Engine import Engine
-from Chassis import Chassis
+from .engine import Engine
+from .chassis import Chassis
 
 
 @dataclass
@@ -122,7 +122,7 @@ class Vehicle(ABC):
                 "VIN": self.vin,
                 "Make": self.make,
                 "Model": self.model,
-                "Trim": self.trim or "—",
+                "Trim": self.trim or "-",
                 "Year": self.year,
                 "Type": self.vehicle_type,
                 "Color": self.color,

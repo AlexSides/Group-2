@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import os
+from datetime import date, timedelta
+from pathlib import Path
 
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor, QPixmap
@@ -32,12 +34,17 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from InventoryManager import InventoryManager
-from LocationManager import Location, LocationManager
-from SampleData import seed_inventory
-from Vehicle import Vehicle
-from DashboardAnalytics import DashboardAnalytics
-from DashboardWidgets import (
+from ..models.car import Car
+from ..models.chassis import Chassis
+from ..models.engine import Engine
+from ..models.location_manager import Location, LocationManager
+from ..models.motorcycle import Motorcycle
+from ..models.truck import Truck
+from ..models.vehicle import Vehicle
+from ..services.dashboard_analytics import DashboardAnalytics
+from ..services.inventory_manager import InventoryManager
+from ..services.sample_data import seed_inventory
+from .dashboard_widgets import (
     DashboardActionRow,
     DashboardLotRow,
     DashboardMarginRow,
@@ -365,6 +372,7 @@ class VehicleDialog(QDialog):
         self.setModal(True)
         self.resize(720, 760)
         self.location_manager = location_manager
+        self.original_vehicle = vehicle
         self.photo_paths: list[str] = list(vehicle.photo_paths) if vehicle else []
 
         outer = QVBoxLayout(self)
@@ -433,6 +441,8 @@ class VehicleDialog(QDialog):
         self.extra_two_widget = QLineEdit()
         self.extra_three_label = QLabel("Drivetrain")
         self.extra_three_widget = QLineEdit()
+        self.extra_four_label = QLabel("Bed Length")
+        self.extra_four_widget = QLineEdit()
         tech_form.addRow("Engine Serial", self.engine_serial_edit)
         tech_form.addRow("Horsepower", self.horsepower_spin)
         tech_form.addRow("Torque (Nm)", self.torque_spin)
@@ -443,6 +453,7 @@ class VehicleDialog(QDialog):
         tech_form.addRow(self.extra_one_label, self.extra_one_widget)
         tech_form.addRow(self.extra_two_label, self.extra_two_widget)
         tech_form.addRow(self.extra_three_label, self.extra_three_widget)
+        tech_form.addRow(self.extra_four_label, self.extra_four_widget)
         tabs.addTab(tech_tab, "Technical")
 
         notes_tab = QWidget()
@@ -519,6 +530,7 @@ class VehicleDialog(QDialog):
             self.extra_one_widget.setValue(vehicle.payload_capacity_lb)
             self.extra_two_widget.setText(str(vehicle.towing_capacity_lb))
             self.extra_three_widget.setText(vehicle.drive_type)
+            self.extra_four_widget.setText(vehicle.bed_length)
         elif isinstance(vehicle, Motorcycle):
             self.extra_one_widget.setValue(vehicle.engine_displacement_cc)
             self.extra_two_widget.setText("Yes" if vehicle.is_sport_bike else "No")
@@ -529,14 +541,24 @@ class VehicleDialog(QDialog):
             self.extra_one_label.setText("Doors")
             self.extra_two_label.setText("Body Type")
             self.extra_three_label.setText("Drivetrain")
+            self._set_optional_truck_fields(False)
         elif vehicle_type == "Truck":
             self.extra_one_label.setText("Payload (lb)")
             self.extra_two_label.setText("Towing (lb)")
             self.extra_three_label.setText("Drive Type")
+            self._set_optional_truck_fields(True)
         else:
             self.extra_one_label.setText("Engine CC")
             self.extra_two_label.setText("Sport Bike? (Yes/No)")
             self.extra_three_label.setText("Bike Type")
+            self._set_optional_truck_fields(False)
+
+    def _set_optional_truck_fields(self, visible: bool):
+        self.extra_four_label.setVisible(visible)
+        self.extra_four_widget.setVisible(visible)
+        if visible:
+            self.extra_four_label.setText("Bed Length")
+            self.extra_four_widget.setPlaceholderText("Short, Standard, Long")
 
     def get_vehicle(self) -> Vehicle:
         engine = Engine(
@@ -544,6 +566,7 @@ class VehicleDialog(QDialog):
             self.horsepower_spin.value(),
             self.torque_spin.value(),
             self.fuel_combo.currentText(),
+            cylinder_count=self.original_vehicle.engine.cylinder_count if self.original_vehicle else None,
         )
         chassis = Chassis(
             self.chassis_combo.currentText(),
@@ -577,7 +600,13 @@ class VehicleDialog(QDialog):
             return Car(**common, num_doors=self.extra_one_widget.value(), body_type=self.extra_two_widget.text().strip() or "Sedan", drivetrain=self.extra_three_widget.text().strip() or "FWD")
         if vehicle_type == "Truck":
             towing = int(float(self.extra_two_widget.text().strip() or "0"))
-            return Truck(**common, payload_capacity_lb=self.extra_one_widget.value(), towing_capacity_lb=towing, drive_type=self.extra_three_widget.text().strip() or "4x2")
+            return Truck(
+                **common,
+                payload_capacity_lb=self.extra_one_widget.value(),
+                towing_capacity_lb=towing,
+                drive_type=self.extra_three_widget.text().strip() or "4x2",
+                bed_length=self.extra_four_widget.text().strip() or "Standard",
+            )
         sport_text = self.extra_two_widget.text().strip().lower()
         return Motorcycle(**common, engine_displacement_cc=self.extra_one_widget.value(), is_sport_bike=sport_text in {"yes","y","true","1"}, bike_type=self.extra_three_widget.text().strip() or "Standard")
 
@@ -612,16 +641,18 @@ class InventoryApp(QMainWindow):
         self.setWindowTitle("Car Inventory Management System")
         self.resize(1550, 950)
         self.setMinimumSize(1280, 820)
+        self.project_root = Path(__file__).resolve().parents[2]
 
         self.inventory_manager = InventoryManager()
-        self.inventory_manager.load_from_json("inventory.json")
+        self.inventory_manager.load_from_json(self.project_root / "inventory.json")
         self.location_manager = LocationManager()
         self.dashboard_analytics = DashboardAnalytics(self.inventory_manager, self.location_manager)
         self.current_page = "Overview"
         self.selected_location_id = "AUS"
         self.selected_vehicle_vin: str | None = None
         self.inventory_hover_vin: str | None = None
-        self.images_folder = ""
+        default_images_folder = self.project_root / "images"
+        self.images_folder = str(default_images_folder) if default_images_folder.is_dir() else ""
         self.detail_photo_index = 0
         self.detail_photo_vehicle_vin: str | None = None
 
@@ -641,8 +672,7 @@ class InventoryApp(QMainWindow):
                 self.clear_layout(child_layout)
 
     def _seed_data(self):
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        images_dir = os.path.join(base_dir, "images")
+        images_dir = self.images_folder or str(self.project_root / "images")
         samples = seed_inventory(self.inventory_manager, self.location_manager, images_dir)
         if samples:
             self.selected_vehicle_vin = samples[0].vin
@@ -888,7 +918,7 @@ class InventoryApp(QMainWindow):
     def _build_vehicle_detail_page(self):
         page, main = self._page_shell("Vehicle Detail", "Dedicated workspace for one vehicle at a time.")
         top_actions = QHBoxLayout(); top_actions.setSpacing(10)
-        self.vehicle_back_btn = QPushButton("← Back to Inventory")
+        self.vehicle_back_btn = QPushButton("Back to Inventory")
         self.vehicle_back_btn.setObjectName("softButton")
         self.vehicle_back_btn.clicked.connect(lambda: self.set_page("Inventory"))
         prev_btn = QPushButton("Previous"); prev_btn.setObjectName("toolbarButton"); prev_btn.clicked.connect(lambda: self.step_vehicle(-1))
@@ -911,10 +941,10 @@ class InventoryApp(QMainWindow):
         self.detail_photo.setMinimumHeight(380)
         photo_layout.addWidget(self.detail_photo)
         photo_nav = QHBoxLayout(); photo_nav.setSpacing(10)
-        self.detail_photo_prev_btn = QPushButton("← Photo")
+        self.detail_photo_prev_btn = QPushButton("Previous Photo")
         self.detail_photo_prev_btn.setObjectName("toolbarButton")
         self.detail_photo_prev_btn.clicked.connect(lambda: self.step_vehicle_photo(-1))
-        self.detail_photo_next_btn = QPushButton("Photo →")
+        self.detail_photo_next_btn = QPushButton("Next Photo")
         self.detail_photo_next_btn.setObjectName("toolbarButton")
         self.detail_photo_next_btn.clicked.connect(lambda: self.step_vehicle_photo(1))
         self.detail_photo_counter = QLabel("0 / 0")
@@ -944,7 +974,7 @@ class InventoryApp(QMainWindow):
             card = QFrame(); card.setObjectName("miniStat")
             card_layout = QVBoxLayout(card); card_layout.setContentsMargins(12, 10, 12, 10)
             key_label = QLabel(key); key_label.setObjectName("miniStatKey")
-            value_label = QLabel("—"); value_label.setObjectName("miniStatValue")
+            value_label = QLabel("-"); value_label.setObjectName("miniStatValue")
             self.detail_metric_labels[key] = value_label
             card_layout.addWidget(key_label); card_layout.addWidget(value_label)
             metrics_grid.addWidget(card, i // 2, i % 2)
@@ -971,7 +1001,7 @@ class InventoryApp(QMainWindow):
         tab = QWidget()
         layout = QVBoxLayout(tab)
         layout.setContentsMargins(16, 16, 16, 16)
-        label = QLabel("—")
+        label = QLabel("-")
         label.setObjectName("bodyText")
         label.setWordWrap(True)
         layout.addWidget(label)
@@ -980,18 +1010,69 @@ class InventoryApp(QMainWindow):
         return tab
 
     def _build_reports_page(self):
-        page, main = self._page_shell("Reports", "Keep reports lighter for now until the browsing and detail workflow feels perfect.")
-        roadmap = Panel("What comes next")
-        label = QLabel(
-            "• Aging and depreciation charts\n"
-            "• Margin opportunity by lot\n"
-            "• Inventory mix over time\n"
-            "• Missing photo workflow reports\n"
-            "• Transfer history and lot comparisons"
-        )
-        label.setObjectName("bodyText")
-        roadmap.body.addWidget(label)
-        main.addWidget(roadmap)
+        page, main = self._page_shell("Reports", "Review the current inventory snapshot, compare lots, and save a shareable text report.")
+
+        report_actions = QHBoxLayout()
+        report_actions.setSpacing(10)
+        report_actions.addStretch()
+        refresh_btn = QPushButton("Refresh Report")
+        refresh_btn.setObjectName("toolbarButton")
+        refresh_btn.clicked.connect(self.refresh_reports_page)
+        save_btn = QPushButton("Save Report Text")
+        save_btn.setObjectName("accentButton")
+        save_btn.clicked.connect(self.save_report_text)
+        report_actions.addWidget(refresh_btn)
+        report_actions.addWidget(save_btn)
+        main.addLayout(report_actions)
+
+        self.report_metric_cards = {
+            "units": MetricCard("Tracked Units"),
+            "ready": MetricCard("Ready Rate"),
+            "days": MetricCard("Average Days"),
+            "projected": MetricCard("Projected Value"),
+        }
+        report_metric_themes = {
+            "units": ("#2563EB", "#EFF6FF"),
+            "ready": ("#14B8A6", "#F0FDFA"),
+            "days": ("#F97316", "#FFF7ED"),
+            "projected": ("#22C55E", "#F0FDF4"),
+        }
+        metric_grid = QGridLayout()
+        metric_grid.setHorizontalSpacing(14)
+        metric_grid.setVerticalSpacing(14)
+        for idx, key in enumerate(["units", "ready", "days", "projected"]):
+            self.report_metric_cards[key].set_theme(*report_metric_themes[key])
+            metric_grid.addWidget(self.report_metric_cards[key], 0, idx)
+        main.addLayout(metric_grid)
+
+        content_grid = QGridLayout()
+        content_grid.setHorizontalSpacing(14)
+        content_grid.setVerticalSpacing(14)
+
+        report_panel = Panel("Performance Report", "Export-ready text summary of the current inventory.")
+        self.report_snapshot_text = QTextEdit()
+        self.report_snapshot_text.setReadOnly(True)
+        self.report_snapshot_text.setMinimumHeight(300)
+        report_panel.body.addWidget(self.report_snapshot_text)
+
+        lot_panel = Panel("Lot Highlights", "Per-location health snapshot across volume, readiness, and aging.")
+        self.report_lot_text = QTextEdit()
+        self.report_lot_text.setReadOnly(True)
+        self.report_lot_text.setMinimumHeight(220)
+        lot_panel.body.addWidget(self.report_lot_text)
+
+        ops_panel = Panel("Operational Summary", "Status mix plus the vehicles that need attention first.")
+        self.report_ops_text = QTextEdit()
+        self.report_ops_text.setReadOnly(True)
+        self.report_ops_text.setMinimumHeight(220)
+        ops_panel.body.addWidget(self.report_ops_text)
+
+        content_grid.addWidget(report_panel, 0, 0, 2, 1)
+        content_grid.addWidget(lot_panel, 0, 1)
+        content_grid.addWidget(ops_panel, 1, 1)
+        content_grid.setColumnStretch(0, 3)
+        content_grid.setColumnStretch(1, 2)
+        main.addLayout(content_grid)
         return page
 
     def _build_action_toolbar(self):
@@ -1043,6 +1124,8 @@ class InventoryApp(QMainWindow):
             self.refresh_inventory_page()
         elif page_name == "Lots":
             self.refresh_lots_page()
+        elif page_name == "Reports":
+            self.refresh_reports_page()
 
     def open_vehicle_detail(self, vin: str | None):
         if not vin:
@@ -1066,6 +1149,7 @@ class InventoryApp(QMainWindow):
         self.refresh_inventory_page()
         self.refresh_lots_page()
         self.refresh_vehicle_detail_page()
+        self.refresh_reports_page()
 
     def refresh_overview(self):
         overview = self.dashboard_analytics.build_overview()
@@ -1128,10 +1212,36 @@ class InventoryApp(QMainWindow):
     def refresh_inventory_page(self):
         vehicles = self.filtered_inventory_vehicles()
         self.populate_table(self.inventory_table, vehicles, TABLE_COLUMNS)
-        preview_vehicle = self.inventory_manager.get_vehicle(self.inventory_hover_vin) if self.inventory_hover_vin else (self.selected_vehicle() or (vehicles[0] if vehicles else None))
+        visible_by_vin = {vehicle.vin: vehicle for vehicle in vehicles}
+        preview_vehicle = None
+        if self.inventory_hover_vin in visible_by_vin:
+            preview_vehicle = visible_by_vin[self.inventory_hover_vin]
+        elif self.selected_vehicle_vin in visible_by_vin:
+            preview_vehicle = visible_by_vin[self.selected_vehicle_vin]
+        elif vehicles:
+            preview_vehicle = vehicles[0]
+        else:
+            self.inventory_hover_vin = None
         self.refresh_hover_preview(preview_vehicle)
+        if not vehicles:
+            if any([
+                self.search_edit.text().strip(),
+                self.filter_location.currentData(),
+                self.filter_status.currentData(),
+                self.filter_type.currentData(),
+            ]):
+                self.inventory_hover_title.setText("No matching vehicles")
+                self.inventory_hover_meta.setText("Adjust the search or filters to bring vehicles back into view.")
+                self.inventory_hover_image.setText("No results")
+            else:
+                self.inventory_hover_title.setText("No vehicles in inventory")
+                self.inventory_hover_meta.setText("Add a vehicle or load inventory data to get started.")
+                self.inventory_hover_image.setText("No inventory")
 
     def refresh_lots_page(self):
+        if self.location_cards and self.selected_location_id not in self.location_cards:
+            self.selected_location_id = next(iter(self.location_cards))
+
         for location_id, card in self.location_cards.items():
             lm = self.inventory_manager.location_metrics(location_id)
             card.set_selected(location_id == self.selected_location_id)
@@ -1151,7 +1261,7 @@ class InventoryApp(QMainWindow):
 
         if location:
             lines = [
-                f"{location.name} — {location.city}",
+                f"{location.name} - {location.city}",
                 f"Manager: {location.manager_name}",
                 f"Address: {location.address}",
                 f"Capacity: {location.capacity}",
@@ -1180,11 +1290,11 @@ class InventoryApp(QMainWindow):
 
         mix_lines = ["Vehicle mix:"]
         for key, value in type_breakdown.items():
-            mix_lines.append(f"• {key}: {value}")
+            mix_lines.append(f"- {key}: {value}")
         if action_items:
             mix_lines += ["", "Action vehicles:"]
             for vehicle in action_items:
-                mix_lines.append(f"• {vehicle.stock_id} — {vehicle.make} {vehicle.model} • {vehicle.status} • {vehicle.days_on_lot()} days")
+                mix_lines.append(f"- {vehicle.stock_id} - {vehicle.make} {vehicle.model} | {vehicle.status} | {vehicle.days_on_lot()} days")
         self.lot_mix_content.setText("\n".join(mix_lines))
 
     def refresh_vehicle_detail_page(self):
@@ -1201,9 +1311,9 @@ class InventoryApp(QMainWindow):
             self.detail_photo_vehicle_vin = None
             self.detail_photo_index = 0
             for label in self.detail_metric_labels.values():
-                label.setText("—")
+                label.setText("-")
             for tab in [self.detail_overview, self.detail_pricing, self.detail_components, self.detail_photos, self.detail_notes]:
-                tab.content_label.setText("—")
+                tab.content_label.setText("-")
             return
 
         if self.detail_photo_vehicle_vin != vehicle.vin:
@@ -1219,7 +1329,7 @@ class InventoryApp(QMainWindow):
         self.detail_metric_labels["Location"].setText(vehicle.location_id)
         self.detail_metric_labels["Mileage"].setText(f"{vehicle.mileage:,}")
         self.detail_overview.content_label.setText(
-            f"Year: {vehicle.year}\nMake: {vehicle.make}\nModel: {vehicle.model}\nTrim: {vehicle.trim or '—'}\nColor: {vehicle.color}\n"
+            f"Year: {vehicle.year}\nMake: {vehicle.make}\nModel: {vehicle.model}\nTrim: {vehicle.trim or '-'}\nColor: {vehicle.color}\n"
             f"Location: {vehicle.location_id}\nStatus: {vehicle.status}\nDays on Lot: {vehicle.days_on_lot()}\nAge Bucket: {vehicle.age_bucket()}"
         )
         self.detail_pricing.content_label.setText(
@@ -1370,8 +1480,9 @@ class InventoryApp(QMainWindow):
         self.refresh_vehicle_detail_page()
 
     def set_vehicle_photo(self, label: QLabel, path: str):
-        if path and os.path.exists(path):
-            pixmap = QPixmap(path)
+        resolved_path = self.resolve_asset_path(path)
+        if resolved_path and os.path.exists(resolved_path):
+            pixmap = QPixmap(resolved_path)
             if not pixmap.isNull():
                 scaled = pixmap.scaled(label.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
                 label.setPixmap(scaled)
@@ -1379,12 +1490,97 @@ class InventoryApp(QMainWindow):
                 return
         label.setPixmap(QPixmap())
         label.setText("No photo loaded")
-        
-    def show_report(self):
-        report = self.inventory_manager.generate_performance_report()
 
-        from PySide6.QtWidgets import QMessageBox
-        QMessageBox.information(self, "Performance Report", report)
+    def resolve_asset_path(self, path: str) -> str:
+        if not path:
+            return ""
+        if os.path.isabs(path):
+            return path
+        candidate = self.project_root / Path(path)
+        if candidate.exists():
+            return str(candidate)
+        return path
+
+    def show_report(self):
+        self.refresh_reports_page()
+        self.set_page("Reports")
+
+    def build_report_text(self) -> str:
+        sections = [
+            self.inventory_manager.generate_performance_report(print_report=False),
+            "",
+            "LOT BREAKDOWN",
+            "-------------",
+            *self._report_lot_lines(),
+            "",
+            "OPERATIONAL SUMMARY",
+            "-------------------",
+            *self._report_ops_lines(),
+        ]
+        return "\n".join(sections)
+
+    def _report_lot_lines(self) -> list[str]:
+        locations = self.location_manager.all_locations()
+        if not locations:
+            return ["No locations loaded."]
+        lines: list[str] = []
+        for location in locations:
+            metrics = self.inventory_manager.location_metrics(location.location_id)
+            lines.append(f"{location.name} ({location.location_id}) - {location.city}")
+            lines.append(
+                f"Units: {metrics['vehicle_count']} | Ready: {metrics['ready_units']} | "
+                f"Aged: {metrics['aged_units']} | Avg Days: {metrics['avg_days_on_lot']:.1f} | "
+                f"List Value: {money(metrics['location_list_value'])}"
+            )
+            lines.append(
+                f"Expected Margin: {money(metrics['location_expected_margin'])} | "
+                f"Missing Photos: {metrics['photo_missing_count']} | Capacity: {location.capacity}"
+            )
+            lines.append("")
+        return lines[:-1] if lines else lines
+
+    def _report_ops_lines(self) -> list[str]:
+        lines = ["Status Mix:"]
+        status_counts = self.inventory_manager.vehicle_counts_by_status()
+        for status in STATUSES:
+            count = status_counts.get(status, 0)
+            if count:
+                lines.append(f"- {status}: {count}")
+        action_items = self.inventory_manager.action_item_vehicles(limit=5)
+        if action_items:
+            lines.extend(["", "Top Action Vehicles:"])
+            for vehicle in action_items:
+                lines.append(
+                    f"- {vehicle.stock_id} | {vehicle.make} {vehicle.model} | "
+                    f"{vehicle.status} | {vehicle.days_on_lot()} days | "
+                    f"Margin {money(vehicle.expected_margin())}"
+                )
+        else:
+            lines.extend(["", "Top Action Vehicles:", "- No urgent action items."])
+        return lines
+
+    def refresh_reports_page(self):
+        report_data = self.inventory_manager.performance_report_data()
+        self.report_metric_cards["units"].value_label.setText(str(report_data["total_vehicles"]))
+        self.report_metric_cards["units"].subtitle_label.setText("Vehicles currently tracked in inventory")
+        self.report_metric_cards["ready"].value_label.setText(f"{report_data['ready_for_sale_percent']:.0f}%")
+        self.report_metric_cards["ready"].subtitle_label.setText("Inventory already ready to sell")
+        self.report_metric_cards["days"].value_label.setText(f"{report_data['average_days_on_lot']:.1f}")
+        self.report_metric_cards["days"].subtitle_label.setText("Average days vehicles have been on lot")
+        self.report_metric_cards["projected"].value_label.setText(money(report_data["total_projected_inventory_value"]))
+        self.report_metric_cards["projected"].subtitle_label.setText("Projected selling value across all units")
+        self.report_snapshot_text.setPlainText(self.build_report_text())
+        self.report_lot_text.setPlainText("\n".join(self._report_lot_lines()))
+        self.report_ops_text.setPlainText("\n".join(self._report_ops_lines()))
+
+    def save_report_text(self):
+        default_name = f"inventory_report_{date.today().isoformat()}.txt"
+        path, _ = QFileDialog.getSaveFileName(self, "Save Report Text", default_name, "Text Files (*.txt)")
+        if not path:
+            return
+        with open(path, "w", encoding="utf-8") as handle:
+            handle.write(self.build_report_text())
+        QMessageBox.information(self, "Report Saved", f"Saved report to:\n{path}")
 
     def add_vehicle(self):
         dialog = VehicleDialog(self.location_manager, parent=self)
@@ -1412,7 +1608,7 @@ class InventoryApp(QMainWindow):
             return
         try:
             updated = dialog.get_vehicle()
-            self.validate_vehicle(updated)
+            self.validate_vehicle(updated, original_vin=old_vin)
             if updated.vin != old_vin:
                 self.inventory_manager.remove_vehicle(old_vin)
             self.inventory_manager.add_vehicle(updated)
@@ -1427,7 +1623,7 @@ class InventoryApp(QMainWindow):
         if not vehicle:
             QMessageBox.information(self, "Delete Vehicle", "Select a vehicle first.")
             return
-        reply = QMessageBox.question(self, "Delete Vehicle", f"Delete {vehicle.stock_id} — {vehicle.year} {vehicle.make} {vehicle.model}?")
+        reply = QMessageBox.question(self, "Delete Vehicle", f"Delete {vehicle.stock_id} - {vehicle.year} {vehicle.make} {vehicle.model}?")
         if reply != QMessageBox.Yes:
             return
         self.inventory_manager.remove_vehicle(vehicle.vin)
@@ -1493,13 +1689,22 @@ class InventoryApp(QMainWindow):
         self.inventory_manager.save_to_json(path)
         QMessageBox.information(self, "Inventory Saved", f"Saved inventory to:\n{path}")
 
-    def validate_vehicle(self, vehicle: Vehicle):
+    def validate_vehicle(self, vehicle: Vehicle, original_vin: str | None = None):
         if not vehicle.stock_id:
             raise ValueError("Stock ID is required.")
         if not vehicle.vin:
             raise ValueError("VIN is required.")
         if not vehicle.make or not vehicle.model:
             raise ValueError("Make and model are required.")
+        if not vehicle.location_id or not self.location_manager.get_location(vehicle.location_id):
+            raise ValueError("Select a valid location.")
+        if vehicle.list_price <= 0:
+            raise ValueError("List price must be greater than zero.")
+        for existing in self.all_vehicles():
+            if existing.vin == vehicle.vin and existing.vin != original_vin:
+                raise ValueError(f"VIN {vehicle.vin} is already in use.")
+            if existing.stock_id == vehicle.stock_id and existing.vin != original_vin:
+                raise ValueError(f"Stock ID {vehicle.stock_id} is already in use.")
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
