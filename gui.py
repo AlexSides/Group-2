@@ -614,6 +614,7 @@ class InventoryApp(QMainWindow):
         self.setMinimumSize(1280, 820)
 
         self.inventory_manager = InventoryManager()
+        self.inventory_manager.load_from_json("inventory.json")
         self.location_manager = LocationManager()
         self.dashboard_analytics = DashboardAnalytics(self.inventory_manager, self.location_manager)
         self.current_page = "Overview"
@@ -999,6 +1000,7 @@ class InventoryApp(QMainWindow):
         row.addWidget(label); row.addStretch()
         actions = [
             ("Add Vehicle", self.add_vehicle),
+            ("Generate Report", self.show_report),
             ("Edit Selected", self.edit_selected_vehicle),
             ("Delete Selected", self.delete_selected_vehicle),
             ("Transfer", self.transfer_selected_vehicle),
@@ -1377,6 +1379,12 @@ class InventoryApp(QMainWindow):
                 return
         label.setPixmap(QPixmap())
         label.setText("No photo loaded")
+        
+    def show_report(self):
+        report = self.inventory_manager.generate_performance_report()
+
+        from PySide6.QtWidgets import QMessageBox
+        QMessageBox.information(self, "Performance Report", report)
 
     def add_vehicle(self):
         dialog = VehicleDialog(self.location_manager, parent=self)
@@ -1391,6 +1399,7 @@ class InventoryApp(QMainWindow):
             self.refresh_all_views()
         except Exception as exc:
             QMessageBox.warning(self, "Could not save vehicle", str(exc))
+
 
     def edit_selected_vehicle(self):
         vehicle = self.selected_vehicle()
