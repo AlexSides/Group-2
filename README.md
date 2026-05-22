@@ -1,51 +1,51 @@
-# Car Inventory Management System - PySide6 Version
+# Vehicle Inventory Desktop App
 
-## Run
-1. Install PySide6:
-   `pip install PySide6`
-2. Keep the `images/` folder beside the Python files if you want the bundled sample inventory photos.
-3. Start the desktop app:
-   `python main.py`
+## Summary
+This project is a small Python desktop application for managing a vehicle inventory. It uses PySide6 for the interface and stores inventory data in `inventory.json`.
 
-## Project structure
-```text
-inventory_app/
-  models/      Vehicle, engine, chassis, location, and vehicle-type classes
-  services/    Inventory logic, analytics, and sample-data seeding
-  ui/          PySide6 windows and dashboard widgets
-scripts/       Utility scripts for report/testing demos
-images/        Bundled image assets
-main.py        Desktop app entry point
-inventory.json Saved inventory snapshot
+The app is organized into package modules for models, services, and UI, with `main.py` as the entry point.
+
+## Key Features
+- Load saved inventory data from `inventory.json`
+- Seed demo inventory data when no saved inventory is available
+- View inventory, lot information, and summary dashboard data
+- Add, edit, delete, and transfer vehicles
+- Save inventory updates back to JSON
+- Generate a simple text performance report
+
+## Technologies Used
+- Python
+- PySide6
+- JSON for local data storage
+
+## Install Dependencies
+Install the required package with:
+
+```bash
+pip install -r requirements.txt
 ```
 
-## Current pages
-- Overview
-- Lots
-- Inventory
-- Vehicle Detail
-- Reports
+## Run the App
+Start the desktop app with:
 
-## Current capabilities
-- Load inventory from `inventory.json` at startup
-- Seed demo vehicles and lot data when no saved inventory exists
-- Add, edit, delete, and transfer vehicles
-- Save inventory back to JSON
-- Browse metrics, lot health, and vehicle details in the PySide6 UI
-- Generate and export a text performance report
+```bash
+python main.py
+```
 
-## Key backend files
-- Vehicle.py
-- Car.py
-- Truck.py
-- Motorcycle.py
-- Engine.py
-- Chassis.py
-- InventoryManager.py
-- LocationManager.py
+Keep the `images/` folder in the project so the bundled sample vehicle images can load correctly.
 
-## Good next additions
-- CSV import/export
-- Editable location management
-- Historical transfer log
-- More report visualizations
+## Project Structure
+- `inventory_app/models/`: Vehicle, engine, chassis, location, and vehicle-type classes
+- `inventory_app/services/`: Inventory logic, analytics, and sample data seeding
+- `inventory_app/ui/`: Active PySide6 interface
+- `images/`: Bundled sample vehicle images
+- `scripts/`: Small utility and test/demo scripts
+- `archive/`: Preserved legacy files
+- `main.py`: App entry point
+- `inventory.json`: Saved inventory data
+- `requirements.txt`: Python dependencies
+
+## Legacy GUI Note
+The active GUI is in `inventory_app/ui/gui.py`.
+
+`archive/gui_legacy.py` is preserved legacy code from an older root-level GUI file. It is not used by the current app startup path.
