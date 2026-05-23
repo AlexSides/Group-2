@@ -5,6 +5,24 @@ This project is a small Python desktop application for managing a vehicle invent
 
 The app is organized into package modules for models, services, and UI, with `main.py` as the entry point.
 
+## What I Built / What I Learned
+This project gave me practice building a desktop UI with PySide6 and organizing a Python application with a more object-oriented structure.
+
+It also helped me work with JSON-based persistence and with separating the project into models, services, and UI modules instead of keeping everything in one file.
+
+## Screenshots
+### Overview
+![Overview page](screenshots/overview.png)
+
+### Lots
+![Lots page](screenshots/lots.png)
+
+### Inventory
+![Inventory page](screenshots/inventory.png)
+
+### Reports
+![Reports page](screenshots/reports.png)
+
 ## Key Features
 - Load saved inventory data from `inventory.json`
 - Seed demo inventory data when no saved inventory is available
@@ -39,6 +57,7 @@ Keep the `images/` folder in the project so the bundled sample vehicle images ca
 - `inventory_app/services/`: Inventory logic, analytics, and sample data seeding
 - `inventory_app/ui/`: Active PySide6 interface
 - `images/`: Bundled sample vehicle images
+- `screenshots/`: README screenshots of the app
 - `scripts/`: Small utility and test/demo scripts
 - `archive/`: Preserved legacy files
 - `main.py`: App entry point
